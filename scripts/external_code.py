@@ -131,7 +131,14 @@ def get_all_units_from(script_args: List[Any]) -> List[ControlNetUnit]:
                 units.append(to_processing_unit(script_args[i]))
             i += 1
 
-    return units
+    filteredUnits = []
+    i = 0
+    while i < len(units):
+        if (isinstance(units[i], ControlNetUnit)):
+            filteredUnits.append(units[i])
+        i += 1
+
+    return filteredUnits
 
 
 def get_single_unit_from(script_args: List[Any], index: int=0) -> Optional[ControlNetUnit]:
@@ -184,7 +191,7 @@ def to_processing_unit(unit: Union[Dict[str, Any], ControlNetUnit]) -> ControlNe
         unit = ControlNetUnit(**unit)
 
     # temporary, check #602
-    #assert isinstance(unit, ControlNetUnit), f'bad argument to controlnet extension: {unit}\nexpected Union[dict[str, Any], ControlNetUnit]'
+    # assert isinstance(unit, ControlNetUnit), f'bad argument to controlnet extension: {unit}\nexpected Union[dict[str, Any], ControlNetUnit]'
     return unit
 
 
